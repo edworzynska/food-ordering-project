@@ -62,7 +62,7 @@ public class IntegrationTest {
         order.add(dish1, 1);
         order.add(dish2, 3);
         var result =  order.orderSummary();
-        assertEquals("x1  tomato soup\nx3  spaghetti", result);
+        assertEquals("x1  tomato soup - 5,00 GBP\nx3  spaghetti - 60,00 GBP", result);
     }
 
     @Test

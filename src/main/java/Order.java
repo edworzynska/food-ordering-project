@@ -1,13 +1,15 @@
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import com.twilio.Twilio;
 
 public class Order {
 
-    private final HashMap<Dish, Integer> order;
+    private final LinkedHashMap<Dish, Integer> order;
 
     public Order() {
-       order = new HashMap<>();
+       order = new LinkedHashMap<>();
     }
 
     public HashMap<Dish, Integer> getOrder() {
@@ -24,7 +26,7 @@ public class Order {
             throw new RuntimeException("Order is empty!");
         }
          return order.entrySet().stream()
-                .map(entry -> "x" + entry.getValue()+ "  " + entry.getKey().getName())
+                .map(entry -> "x" + entry.getValue()+ "  " + entry.getKey().getName() + " - " + String.format("%.2f", dishTotal(entry.getKey())) + " GBP")
                 .collect(Collectors.joining("\n"));
     }
     public void removeDish(Dish dish){
