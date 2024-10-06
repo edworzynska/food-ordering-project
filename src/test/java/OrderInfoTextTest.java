@@ -2,10 +2,10 @@ import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -37,5 +37,12 @@ class OrderInfoTextTest {
                     anyString()), times(1)
             );
         }
+    }
+
+    @Disabled
+    @Test
+    void sendsConfirmation() {
+        orderInfoText.sendOrderInfo();
+
     }
 }

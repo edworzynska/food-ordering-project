@@ -1,7 +1,7 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Receipt {
+public class Receipt{
     private final Order order;
     private Boolean isFinalised = false;
 
@@ -18,7 +18,10 @@ public class Receipt {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return currentDateTime.format(dateFormatter);
     }
-    public String generateReceipt(){
+    public String generateReceipt() {
+        if (isFinalised) {
+            throw new RuntimeException("Receipt has already been generated!");
+        }
         isFinalised = true;
         return String.format("Your order placed on %s at %s:\n\n", getDate(), getTime()) + order.orderSummary()
                 + String.format("\n\nTotal amount: %.2f GBP", order.orderTotal());
