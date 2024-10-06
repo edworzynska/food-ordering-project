@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 public class OrderInfoText {
     private static final String ACCOUNT_SID = System.getenv("ACCOUNT_SID");
     private static final String AUTH_TOKEN = System.getenv("AUTH_TOKEN");
+    private static Boolean confirmationSent = false;
+    private static String NUMBER_TO = System.getenv("NUMBER_TO");
+    private static String NUMBER_FROM = System.getenv("NUMBER_FROM");
 
     private static String getDeliveryTime(){
         LocalDateTime deliveryTime = LocalDateTime.now().plusMinutes(40);
@@ -16,12 +19,14 @@ public class OrderInfoText {
     }
 
     public void sendOrderInfo(){
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        Message.creator(
-                new PhoneNumber(System.getenv("NUMBER_TO")),
-                new PhoneNumber(System.getenv("NUMBER_FROM")),
-                String.format("Thank you for your order! It will be delivered before %s.", getDeliveryTime()))
+        if (!confirmationSent) {
+            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+            Message.creator(
+                            new PhoneNumber(NUMBER_TO),
+                            new PhoneNumber(NUMBER_FROM),
+                            String.format("Thank you for your order! It will be delivered before %s.", getDeliveryTime()))
                     .create();
-
+            confirmationSent = true;
+        }
     }
 }

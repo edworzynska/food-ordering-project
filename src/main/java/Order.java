@@ -12,14 +12,16 @@ public class Order {
        order = new LinkedHashMap<>();
     }
 
-    public HashMap<Dish, Integer> getOrder() {
+    public LinkedHashMap<Dish, Integer> getOrder() {
         return order;
     }
     public void add(Dish dish, Integer quantity){
         if (order.containsKey(dish)){
             quantity += order.get(dish);
         }
-        order.put(dish, quantity);
+        if (quantity > 0) {
+            order.put(dish, quantity);
+        }
     }
     public String orderSummary(){
         if (order.isEmpty()){
@@ -36,6 +38,9 @@ public class Order {
         return dish.getPrice() * order.get(dish);
     }
     public Double orderTotal(){
+        if (order.isEmpty()){
+            throw new RuntimeException("Order is empty!");
+        }
         Double total = 0.0;
         for (Map.Entry<Dish, Integer> entry : order.entrySet()){
             Dish dish = entry.getKey();
