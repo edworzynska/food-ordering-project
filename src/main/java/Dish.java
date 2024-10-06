@@ -1,6 +1,6 @@
 public class Dish {
-    private String name;
-    private Double price;
+    private final String name;
+    private final Double price;
 
     public Dish(String name, Double price) {
         this.name = name;
