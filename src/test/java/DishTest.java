@@ -43,6 +43,4 @@ class DishTest {
         assertEquals("Tomato soup - 5,00 GBP", result1);
         assertEquals("a fancy dish - 59,99 GBP", result2);
     }
-
-
 }
