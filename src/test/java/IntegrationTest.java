@@ -1,7 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -99,5 +100,29 @@ public class IntegrationTest {
         order.add(dish2, 1);
         var result2 = order.orderTotal();
         assertEquals(85, result2);
+    }
+
+    @Test
+    void generatesReceipt() {
+        Receipt receipt = new Receipt(order);
+
+
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        String time =  currentDateTime.format(timeFormatter);
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = currentDateTime.format(dateFormatter);
+
+
+        order.add(dish1, 5);
+        order.add(dish2, 2);
+        var result = receipt.generateReceipt();
+        assertEquals(String.format("""
+                Your order placed on %s at %s:
+                
+                x5  tomato soup - 25,00 GBP
+                x2  spaghetti - 40,00 GBP
+                
+                Total amount: 65,00 GBP""", date, time), result);
     }
 }
