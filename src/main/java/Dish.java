@@ -16,6 +16,7 @@ public class Dish {
         return name;
     }
 
+//storing price as Double in java is not a great idea see https://stackoverflow.com/questions/3730019/why-not-use-double-or-float-to-represent-currency
     public Double getPrice() {
         return price;
     }
